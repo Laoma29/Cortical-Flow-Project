@@ -1,5 +1,5 @@
 function [flowField, int_dF, errorData, errorReg, poincare, interval] = ...
-  bst_opticalflow(F, FV, Time, tStart, tEnd, hornSchunck,sample_rate)
+  bst_opticalflow(F, FV, Time, tStart, tEnd, hornSchunck,sample_rate，interval ，dimension，intervalLength )
 % BST_OPTICALFLOW: Computes the optical flow of MEG/EEG activities on the cortical surface.
 %% USAGE:  [flow, dEnergy, int_dI, errorData, errorReg, index] = ...
 %   bst_opticalflow(dataFile, channelFile, tStart, tEnd, hornSchunck)
@@ -26,7 +26,7 @@ function [flowField, int_dF, errorData, errorReg, poincare, interval] = ...
 %          Syed Ashrafulla, 2010
 ％　　　　Ｘｉａｏｂｏ　Ｌｉｕ　２０２０
 
-dimension = 3; % 2 for projected maps
+
 Faces = FV.Faces; Vertices = FV.Vertices; VertNormals = FV.VertNormals;
 nVertices = size(Vertices,1); % VertNormals = FV.VertNormals';
 nFaces = size(Faces,1);
@@ -43,8 +43,8 @@ end
 if tEndIndex > size(Time, 2)
     tEndIndex = size(Time, 2);
 end
-interval = Time(tStartIndex:tEndIndex); % Interval of flow calculations
-intervalLength = tEndIndex-tStartIndex+1; % Length of time interval for calculations
+％interval = Time(tStartIndex:tEndIndex); % Interval of flow calculations
+％intervalLength = tEndIndex-tStartIndex+1; % Length of time interval for calculations
 M = max(max(abs(F(:,tStartIndex-1:tEndIndex)))); F = F/M; % Scale values to avoid precision error
 flowField = zeros(nVertices, dimension, intervalLength);
 dEnergy = zeros(1, intervalLength);
